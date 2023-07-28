@@ -18,7 +18,7 @@ const BuyData = () => {
     <LandingPageLayout>
       <div className="pt-10 pl-10">
         <p className=" text-[#4287f5] ">Buy Airtime </p>
-        <PayBill datatype={datatype?.getdataSuccess?.type} catId="Phone Number" status={status} typ='data' />
+        <PayBill datatype={datatype?.getdataSuccess?.type} catId="Phone Number" statu={status} typ='data' />
       </div>
     </LandingPageLayout>
   );

@@ -18,7 +18,7 @@ const BuyElectricity = () => {
     <LandingPageLayout>
       <div className="pt-10 pl-10">
         <p className=" text-[#4287f5] ">Buy Electricity </p>
-        <PayBill datatype={powertype?.getdataSuccess?.type} catId="Meter Number" status={status} typ='power' />
+        <PayBill datatype={powertype?.getdataSuccess?.type} catId="Meter Number" statu={status} typ='power' />
       </div>
     </LandingPageLayout>
   );

@@ -2,7 +2,11 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "utils/axios";
 const initialState = {
   wallet: null,
-  status:'idle'
+  status: "idle",
+  billtrans: {
+    bill: null,
+    status: "idle",
+  },
 };
 
 export const fetchtranSaction = createAsyncThunk(
@@ -14,8 +18,14 @@ export const fetchtranSaction = createAsyncThunk(
   }
 );
 
-
-
+export const fetchbillTransactions = createAsyncThunk(
+  "category/fetchbillTransactions",
+  async () => {
+    const response = await axios.get("/airtime");
+    // console.log(response)
+    return response.data;
+  }
+);
 
 export const gettransactionSlice = createSlice({
   name: "category",
@@ -30,7 +40,14 @@ export const gettransactionSlice = createSlice({
         state.status = "successful";
         state.wallet = payload;
       });
-
+    builder
+      .addCase(fetchbillTransactions.pending, (state) => {
+        state.status = "loading";
+      })
+      .addCase(fetchbillTransactions.fulfilled, (state, { payload }) => {
+        state.billtrans.status = "successful";
+        state.billtrans.bill = payload;
+      });
   },
 });
 

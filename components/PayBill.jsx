@@ -1,10 +1,14 @@
-import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import Select from "react-select";
 import { payAirtime } from "@/store/slice/payBillsSlice";
+import { useRouter } from 'next/router';
+import { fetchupdatedWallet } from "@/store/slice/walletSice";
 
-const PayBill = ({ datatype, status, typ, catId, payBills }) => {
+
+const PayBill = ({ datatype, statu, typ, catId, payBills }) => {
   const dispatch = useDispatch();
+  const {wallet, status} = useSelector(state => state.paybills)
   const [selectedCategory, setSelectedCategory] = useState();
   const [amountInput, setamountInput] = useState("");
   const [formData, setFormData] = useState({
@@ -17,12 +21,21 @@ const PayBill = ({ datatype, status, typ, catId, payBills }) => {
   const [country, setCountry] = useState("NG");
   const [customer, setCustomer] = useState("");
   const [amount, setAmount] = useState();
-  const [type, setType] = useState();
+  const router = useRouter();
 
+  const transaction = wallet?.data?.airtimesuccess?.transactionId
+  console.log(transaction)
+
+  const [type, setType] = useState();
+  console.log(type)
   const data = datatype;
+  console.log(amount)
 
   const selectCategory = (cate) => {
+  console.log(amount)
+
     setType(cate);
+    setAmount(cate.amount)
   };
 
   const customStyle = {
@@ -49,12 +62,27 @@ const PayBill = ({ datatype, status, typ, catId, payBills }) => {
       payAirtime({
         country: country,
         customer: customer,
-        type: type,
+        type: type.name,
         amount: amount,
-        reference: 298986378,
+        reference: 298326378,
       })
     );
+
+   
+
   };
+
+
+  useEffect(() => {
+    if(status  === "successful"){
+      dispatch(fetchupdatedWallet(transaction))
+  console.log(status)
+
+    }
+  }, [status])
+  
+
+
   return (
     <div className="pt-10">
       <div className="rounded-lg bg-gray-900 w-[390px] h-[480px] px-5 py-5 ">
@@ -77,7 +105,7 @@ const PayBill = ({ datatype, status, typ, catId, payBills }) => {
           <input
             className="w-full py-2 rounded-full leading-loose tracking-[1px] outline-none bg-gray-900 mt-2 outline-[#4287f5] text-slate-400 text-[13px] px-2 outline-1"
             placeholder="amount"
-            value={type?.amount}
+            value={amount}
             // value="AIRTIME"
           />
         ) : null}
@@ -120,9 +148,9 @@ const PayBill = ({ datatype, status, typ, catId, payBills }) => {
                 // </p>
               ),
             }))}
-            isLoading={status == "loading"}
+            isLoading={statu == "loading"}
             onChange={(e) => {
-              selectCategory(e.value);
+              selectCategory({name:e.value, amount:e.data});
             }}
             isClearable
             classNamePrefix="react-select"

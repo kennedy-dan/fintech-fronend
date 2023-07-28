@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import LandingPageLayout from "@/components/Layout";
 import { RxAvatar } from "react-icons/rx";
 import { BsFillCreditCardFill, BsFillPhoneFill, BsWifi } from "react-icons/bs";
@@ -8,21 +8,31 @@ import { PiTelevisionSimpleBold } from "react-icons/pi";
 import { BiFootball } from "react-icons/bi";
 import Link from "next/link";
 import { useSelector, useDispatch } from "react-redux";
-import { fetchWalletAmount } from "@/store/slice/walletSice";
-import { fetchtranSaction } from "@/store/slice/transactionSlice";
+import { fetchWalletAmount, fetchupdatedWallet } from "@/store/slice/walletSice";
+import { fetchbillTransactions } from "@/store/slice/transactionSlice";
 
 
 const Dashboard = () => {
   const dispatch = useDispatch()
   const {wallet} = useSelector(state => state.wallet)
+  const {billtrans} = useSelector(state => state.transaction)
+
+
+//  console.log(lastElement)
+
   useEffect(() => {
     dispatch(fetchWalletAmount())
+    dispatch(fetchbillTransactions())
   }, [])
+
+  // useEffect(() => {
+  //   dispatch(fetchupdatedWallet())
+  // }, [])
   
 
-
-  fetchWalletAmount
-  useSelector
+// const [price, setprice] = useState(lastElement.amount)
+  
+  
   return (
     <LandingPageLayout>
       <div className="mt-10 px-10">
