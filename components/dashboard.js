@@ -23,7 +23,7 @@ const Dashboard = () => {
     // router.reload()
     dispatch(fetchbillTransactions());
     dispatch(fetchTransactions());
-  }, [token]);
+  }, [token, dispatch]);
   return (
     <div className="mt-10 px-10">
       <div className="bg-gradient-to-r from-[#163A7D] to-blue-300 px-4 rounded-lg w-[370px] h-[220px] ">

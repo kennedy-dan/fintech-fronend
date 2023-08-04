@@ -12,7 +12,7 @@ const BuyAirtime = () => {
   const { airtimetype, status } = useSelector((state) => state.data);
   useEffect(() => {
     dispatch(fetchAirtimeCategories());
-  }, []);
+  }, [dispatch]);
 
   return (
     <LandingPageLayout>

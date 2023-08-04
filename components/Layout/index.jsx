@@ -52,7 +52,7 @@ const LandingPageLayout = ({ children }) => {
       dispatch(clearWallet());
       direct.push("/login");
     }
-  }, [token]);
+  }, [token, dispatch]);
 
   return (
     <div className={`flex bg-[#040c1c] tracking-wider`}>

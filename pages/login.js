@@ -35,7 +35,7 @@ const Login = () => {
    if(token){
     direct.push('/dashboard')
    }
-  }, [token])
+  }, [token, dispatch])
   
   
   return (

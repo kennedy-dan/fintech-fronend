@@ -10,7 +10,7 @@ const BuyCable = () => {
 
   useEffect(() => {
     dispatch(fetchCableCategories());
-  }, []);
+  }, [dispatch]);
 
   return (
     <LandingPageLayout>

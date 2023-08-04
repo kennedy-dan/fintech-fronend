@@ -39,10 +39,7 @@ const Dashboard = () => {
     dispatch(fetchTransactions());
   }, [token]);
 
-  useEffect(() => {
-    // This will execute when the component is mounted (new page is loaded)
-    // window.location.reload();
-  }, []);
+
 
   // const [price, setprice] = useState(lastElement.amount)
 

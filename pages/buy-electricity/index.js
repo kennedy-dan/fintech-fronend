@@ -12,7 +12,7 @@ const BuyElectricity = () => {
   // console.log(datatype)
   useEffect(() => {
     dispatch(fetchPowerCategories());
-  }, []);
+  }, [dispatch]);
 
   return (
     <LandingPageLayout>

@@ -12,7 +12,7 @@ const BuyData = () => {
   // console.log(datatype)
   useEffect(() => {
     dispatch(fetchDataCategories());
-  }, []);
+  }, [dispatch]);
 
   return (
     <LandingPageLayout>
