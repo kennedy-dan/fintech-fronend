@@ -20,6 +20,20 @@ const Deposit = () => {
   };
   const handleFlutterPayment = useFlutterwave(config);
 
+  const sendrequest = () =>{
+                handleFlutterPayment({
+                  callback: (response) => {
+                    closePaymentModal();
+                  },
+                  onClose: () => {},
+                })
+  }
+  const handleKeyPress = (event) => {
+    if (event.key === 'Enter') {
+      // If the Enter key is pressed, trigger the request
+      sendrequest()
+    }
+  };
   return (
     <LandingPageLayout>
       <div className="pt-10 pl-10">
@@ -30,18 +44,11 @@ const Deposit = () => {
             <div className="bg-gray-700 rounded-l-lg flex items-center mt-1 px-3">
               <p>₦</p>
             </div>
-            <input value={amount} onChange={e => setamount(e.target.value)} className="w-full  rounded-r-lg outline-none outline-1 bg-slate-4 mt-1 py-2 bg-gray-700  tracking-[2px] leading-loose  text-white text-[13px] px-2 " />
+            <input value={amount} onChange={e => setamount(e.target.value)}  onKeyPress={handleKeyPress} className="w-full  rounded-r-lg outline-none outline-1 bg-slate-4 mt-1 py-2 bg-gray-700  tracking-[2px] leading-loose  text-white text-[13px] px-2 " />
           </div>
           <div className="mt-3">
             <button
-               onClick={() =>
-                handleFlutterPayment({
-                  callback: (response) => {
-                    closePaymentModal();
-                  },
-                  onClose: () => {},
-                })
-              }
+               onClick={sendrequest}
               className="w-fit bg-blue-800 text-sm py-2 tracking-[1px] px-2 leading-loose rounded-lg"
               
             >

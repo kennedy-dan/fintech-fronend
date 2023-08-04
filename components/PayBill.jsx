@@ -1,14 +1,18 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Select from "react-select";
-import { payAirtime } from "@/store/slice/payBillsSlice";
-import { useRouter } from 'next/router';
+import { payAirtime, resetStatus } from "@/store/slice/payBillsSlice";
+import { useRouter } from "next/router";
 import { fetchupdatedWallet } from "@/store/slice/walletSice";
-
+import { ClipLoader } from "react-spinners";
+import { toast } from "react-toastify";
 
 const PayBill = ({ datatype, statu, typ, catId, payBills }) => {
   const dispatch = useDispatch();
-  const {wallet, status} = useSelector(state => state.paybills)
+  const { wallet, status } = useSelector((state) => state.paybills);
+  const { walletAmount } = useSelector((state) => state.wallet);
+
+  const { user } = useSelector((state) => state.auth);
   const [selectedCategory, setSelectedCategory] = useState();
   const [amountInput, setamountInput] = useState("");
   const [formData, setFormData] = useState({
@@ -20,22 +24,23 @@ const PayBill = ({ datatype, statu, typ, catId, payBills }) => {
   });
   const [country, setCountry] = useState("NG");
   const [customer, setCustomer] = useState("");
+  const [state, setState] = useState(false);
   const [amount, setAmount] = useState();
   const router = useRouter();
 
-  const transaction = wallet?.data?.airtimesuccess?.transactionId
-  console.log(transaction)
+  const transaction = wallet?.data?.airtimesuccess?.transactionId;
+  console.log(transaction);
 
   const [type, setType] = useState();
-  console.log(type)
+  console.log(type);
   const data = datatype;
-  console.log(amount)
+  console.log(amount);
 
   const selectCategory = (cate) => {
-  console.log(amount)
+    console.log(amount);
 
     setType(cate);
-    setAmount(cate.amount)
+    setAmount(cate.amount);
   };
 
   const customStyle = {
@@ -58,30 +63,40 @@ const PayBill = ({ datatype, statu, typ, catId, payBills }) => {
   };
 
   const pay = () => {
-    dispatch(
-      payAirtime({
-        country: country,
-        customer: customer,
-        type: type.name,
-        amount: amount,
-        reference: 298326378,
-      })
-    );
+    if (amount > walletAmount) {
+      console.log("firstttttt");
+      toast.error("Insufficient Balance");
 
-   
-
+    } else {
+      dispatch(
+        payAirtime({
+          country: country,
+          customer: customer,
+          type: type.name,
+          amount: amount,
+          reference: 298326378,
+        })
+      );
+    }
   };
+
+  const mail = user?.email;
+  console.log(mail);
+
 
 
   useEffect(() => {
-    if(status  === "successful"){
-      dispatch(fetchupdatedWallet(transaction))
-  console.log(status)
+    if (status === "successful") {
+      dispatch(fetchupdatedWallet({ transaction, mail }));
+      toast.success("transaction successful");
+      // router.push('/dashboard')
+      dispatch(resetStatus());
+
 
     }
-  }, [status])
-  
+  }, [status]);
 
+  
 
   return (
     <div className="pt-10">
@@ -100,24 +115,6 @@ const PayBill = ({ datatype, statu, typ, catId, payBills }) => {
           value={customer}
           onChange={(e) => setCustomer(e.target.value)}
         />
-        <p className="text-slate-400 text-sm mt-8">Amount:</p>
-        {typ === "data" || typ === "cable" ? (
-          <input
-            className="w-full py-2 rounded-full leading-loose tracking-[1px] outline-none bg-gray-900 mt-2 outline-[#4287f5] text-slate-400 text-[13px] px-2 outline-1"
-            placeholder="amount"
-            value={amount}
-            // value="AIRTIME"
-          />
-        ) : null}
-        {typ === "airtime" || typ === "power" ? (
-          <input
-            className="w-full py-2 rounded-full outline-none leading-loose tracking-[4px] bg-gray-900 mt-2 outline-[#4287f5] text-slate-400 text-[13px] px-2 outline-1"
-            placeholder="amount"
-            value={amount}
-            onChange={(e) => setAmount(e.target.value)}
-
-          />
-        ) : null}
 
         <p className="text-slate-400 text-sm mt-8">Type:</p>
         {typ === "data" ||
@@ -150,10 +147,28 @@ const PayBill = ({ datatype, statu, typ, catId, payBills }) => {
             }))}
             isLoading={statu == "loading"}
             onChange={(e) => {
-              selectCategory({name:e.value, amount:e.data});
+              selectCategory({ name: e.value, amount: e.data });
             }}
             isClearable
             classNamePrefix="react-select"
+          />
+        ) : null}
+
+        <p className="text-slate-400 text-sm mt-8">Amount:</p>
+        {typ === "data" || typ === "cable" ? (
+          <input
+            className="w-full py-2 rounded-full leading-loose tracking-[1px] outline-none bg-gray-900 mt-2 outline-[#4287f5] text-slate-400 text-[13px] px-2 outline-1"
+            placeholder="amount"
+            value={amount}
+            // value="AIRTIME"
+          />
+        ) : null}
+        {typ === "airtime" || typ === "power" ? (
+          <input
+            className="w-full py-2 rounded-full outline-none leading-loose tracking-[4px] bg-gray-900 mt-2 outline-[#4287f5] text-slate-400 text-[13px] px-2 outline-1"
+            placeholder="amount"
+            value={amount}
+            onChange={(e) => setAmount(e.target.value)}
           />
         ) : null}
 
@@ -161,7 +176,12 @@ const PayBill = ({ datatype, statu, typ, catId, payBills }) => {
           className="bg-[#040c1c] py-2 px-4 rounded-lg mt-6"
           onClick={pay}
         >
-          <p className="font-bold text-[#4287f5]">Purhase</p>
+          <div className="flex items-center">
+            <p className="font-bold text-[#4287f5]">Purhase</p>
+            {status === "loading" && (
+              <ClipLoader className="ml-3" color="#ffffff" size={12} />
+            )}
+          </div>
         </button>
       </div>
     </div>

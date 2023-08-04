@@ -15,6 +15,8 @@ const BuyCable = () => {
   return (
     <LandingPageLayout>
       <div className="pt-10 pl-10">
+      <p className=" text-[#4287f5] ">Cable Subscription </p>
+
         <PayBill datatype={cabletype?.getdataSuccess?.type} catId="Smart card Number" typ="cable" />
       </div>
     </LandingPageLayout>

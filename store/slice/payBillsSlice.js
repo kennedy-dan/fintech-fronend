@@ -23,7 +23,12 @@ export const payAirtime = createAsyncThunk(
 export const payBillSlice = createSlice({
   name: "category",
   initialState,
-  reducers: {},
+  reducers: {
+    resetStatus: (state) => {
+      state.status = 'idle';
+
+		}
+  },
   extraReducers: (builder) => {
     builder
       .addCase(payAirtime.pending, (state) => {
@@ -33,9 +38,12 @@ export const payBillSlice = createSlice({
         console.log(payload)
         state.status = "successful";
         state.wallet = payload;
-      });
+      })
+
 
   },
 });
+
+export const { resetStatus } = payBillSlice.actions;
 
 export default payBillSlice.reducer;

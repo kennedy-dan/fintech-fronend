@@ -1,12 +1,18 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { useSelector } from "react-redux";
 import axios from "utils/axios";
+
 const initialState = {
-  wallet: null,
+  walletAmount: null,
   status: "idle",
   updated: {
     wallet: null,
     status: "idle",
   },
+  check:{
+    wallet: null,
+    status: "idle",
+  }
 };
 
 export const fetchWalletAmount = createAsyncThunk(
@@ -21,7 +27,11 @@ export const fetchWalletAmount = createAsyncThunk(
 export const fetchupdatedWallet = createAsyncThunk(
   "category/fetchupdatedWallet",
   async (trasnsaction) => {
-    const response = await axios.get(`/update/balance/${trasnsaction}`);
+    console.log(trasnsaction)
+
+    console.log(trasnsaction.trasnsaction)
+    console.log(trasnsaction.user)
+    const response = await axios.get(`/update/balance/${trasnsaction.transaction}/${ trasnsaction.mail}`);
     return response.data;
   }
 );
@@ -29,7 +39,13 @@ export const fetchupdatedWallet = createAsyncThunk(
 export const getWalletSlice = createSlice({
   name: "category",
   initialState,
-  reducers: {},
+  reducers: {
+    clearWallet: (state) => {
+      state.status = "idle";
+      state.walletAmount = null;
+
+		}
+  },
   extraReducers: (builder) => {
     builder
       .addCase(fetchWalletAmount.pending, (state) => {
@@ -37,17 +53,21 @@ export const getWalletSlice = createSlice({
       })
       .addCase(fetchWalletAmount.fulfilled, (state, { payload }) => {
         state.status = "successful";
-        state.wallet = payload;
+        state.walletAmount = payload;
       });
     builder
       .addCase(fetchupdatedWallet.pending, (state) => {
-        state.updated.status = "loading";
+        state.check.status="loading"
       })
       .addCase(fetchupdatedWallet.fulfilled, (state, { payload }) => {
         state.updated.status = "successful";
+        state.check.status="done"
+
         state.updated.wallet = payload;
+        
       });
   },
 });
-
+export const { clearWallet } =
+getWalletSlice.actions;
 export default getWalletSlice.reducer;

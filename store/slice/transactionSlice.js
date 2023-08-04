@@ -7,6 +7,10 @@ const initialState = {
     bill: null,
     status: "idle",
   },
+  gettrans: {
+    bill: null,
+    status: "idle",
+  },
 };
 
 export const fetchtranSaction = createAsyncThunk(
@@ -22,6 +26,15 @@ export const fetchbillTransactions = createAsyncThunk(
   "category/fetchbillTransactions",
   async () => {
     const response = await axios.get("/airtime");
+    // console.log(response)
+    return response.data;
+  }
+);
+
+export const fetchTransactions = createAsyncThunk(
+  "fetchTransactions",
+  async () => {
+    const response = await axios.get("/gettransaction");
     // console.log(response)
     return response.data;
   }
@@ -47,6 +60,14 @@ export const gettransactionSlice = createSlice({
       .addCase(fetchbillTransactions.fulfilled, (state, { payload }) => {
         state.billtrans.status = "successful";
         state.billtrans.bill = payload;
+      });
+    builder
+      .addCase(fetchTransactions.pending, (state) => {
+        state.status = "loading";
+      })
+      .addCase(fetchTransactions.fulfilled, (state, { payload }) => {
+        state.gettrans.status = "successful";
+        state.gettrans.bill = payload;
       });
   },
 });
