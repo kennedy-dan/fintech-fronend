@@ -17,7 +17,7 @@ const getToken1 = async () => {
 };
 
 const instance = axios.create({
-	baseURL: "http://localhost:4001/api",
+	baseURL: "https://fintech-backend-ru9x.onrender.com/api",
 	headers: {
 		"Content-Type": "application/json",
 		"Access-Control-Allow-Origin": "*",
