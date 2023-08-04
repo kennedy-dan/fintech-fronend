@@ -12,7 +12,7 @@ const Deposit = () => {
     amount: amount,
     currency: "NGN",
     payment_options: "card,mobilemoney,ussd",
-    redirect_url: "http://localhost:4001/api/response",
+    redirect_url: "https://fintech-backend-ru9x.onrender.com/api/response",
     customer: {
       email: user?.email,
       name: user?.firstName + "  " + user?.LastName,
