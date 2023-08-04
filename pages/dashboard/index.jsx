@@ -37,7 +37,7 @@ const Dashboard = () => {
     // router.reload()
     dispatch(fetchbillTransactions());
     dispatch(fetchTransactions());
-  }, [token]);
+  }, [token, dispatch]);
 
 
 

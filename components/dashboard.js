@@ -132,7 +132,7 @@ const Dashboard = () => {
           </div>
           <div className="">
             {gettrans?.bill?.bills?.map((data) => (
-              <div className="grid grid-cols-5 text-white px-1 text-[11px] mt-3 py-2">
+              <div key={data.transactionId} className="grid grid-cols-5 text-white px-1 text-[11px] mt-3 py-2">
                 <p>deposit</p> <p>flutterwave</p> <p>{data.transactionId}</p>{" "}
                 <p>{data.amount}</p> <p>{data.paymentStatus}</p>
               </div>
@@ -149,7 +149,7 @@ const Dashboard = () => {
           </div>
           <div className="">
             {billtrans?.bill?.bills?.map((data) => (
-              <div className="grid grid-cols-5 text-white px-1 text-[11px] mt-3 py-2">
+              <div key={data._id} className="grid grid-cols-5 text-white px-1 text-[11px] mt-3 py-2">
                 <p>{data.network}</p> <p className="col-span-2">{data.phone}</p>{" "}
                 <p>{data.amount}</p> <p>successful</p>
               </div>

@@ -94,7 +94,7 @@ const PayBill = ({ datatype, statu, typ, catId, payBills }) => {
 
 
     }
-  }, [status, dispatch]);
+  }, [status, dispatch, transaction, mail]);
 
   
 
