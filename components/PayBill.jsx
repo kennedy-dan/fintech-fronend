@@ -100,7 +100,7 @@ const PayBill = ({ datatype, statu, typ, catId, payBills }) => {
 
   return (
     <div className="py-10 h-screen">
-      <div className="rounded-lg bg-gray-900 w-[290px] md:w-[390px] h-[480px] px-2 md:px-5 py-5 ">
+      <div className="rounded-lg bg-gray-900 w-[250px] md:w-[390px] h-[480px] px-2 md:px-5 py-5 ">
         <p className="text-slate-400 text-sm pb-1">country:</p>
         <input
           className="w-full  rounded-full outline-none bg-gray-900 mt-2  tracking-[2px] leading-loose outline-[#4287f5] py-2 text-slate-400 text-[13px] px-2 outline-1"

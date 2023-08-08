@@ -36,8 +36,8 @@ const Deposit = () => {
   };
   return (
     <LandingPageLayout>
-      <div className="pt-10 pl-10">
-        <div className=" bg-gray-900 w-[600px] px-4 text-white h-[240px] ">
+      <div className="pt-10 md:pl-10 pl-2 h-screen">
+        <div className=" bg-gray-900 md:w-[600px] w-[260px] px-4 text-white h-[240px] ">
           <p className="pt-3">Fund your wallet</p>
           <p className="text-sm pt-10">Amount you want to fund:</p>
           <div className="flex mt-2">

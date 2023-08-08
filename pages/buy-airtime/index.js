@@ -16,7 +16,7 @@ const BuyAirtime = () => {
 
   return (
     <LandingPageLayout>
-      <div className="pt-10 pl-10">
+      <div className="pt-10 md:pl-10 pl-4">
         <p className=" text-[#4287f5] ">Buy Airtime </p>
         <PayBill datatype={airtimetype?.getdataSuccess?.type} catId="Phone Number" statu={status} typ='airtime' payBills={payAirtime} />
 

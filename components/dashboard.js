@@ -6,10 +6,13 @@ import { AiOutlineThunderbolt } from "react-icons/ai";
 import { PiTelevisionSimpleBold } from "react-icons/pi";
 import { BiFootball, BiTransfer } from "react-icons/bi";
 import { useSelector, useDispatch } from "react-redux";
+
 import {
   fetchbillTransactions,
   fetchTransactions,
 } from "@/store/slice/transactionSlice";
+import { DataTable } from "primereact/datatable";
+import { Column } from "primereact/column";
 import { useRouter } from "next/router";
 import Link from "next/link";
 const Dashboard = () => {
@@ -25,10 +28,47 @@ const Dashboard = () => {
     dispatch(fetchTransactions());
   }, [token, dispatch]);
 
+  const cars = [
+    { brand: "Toyota", year: 2022, color: "Blue" },
+    { brand: "Honda", year: 2021, color: "Red" },
+    { brand: "Ford", year: 2020, color: "Green" },
+    // Add more data
+  ];
+
   const recentdeposit = gettrans?.bill?.bills?.slice(0, 4);
+
+  // const date = recentdeposit.map(date => )
+  console.log(recentdeposit);
   const recentTransaction = billtrans?.bill?.bills?.slice(0, 4);
+
+  function formatDate(inputDate) {
+    const parsedDate = new Date(inputDate);
+
+    const day = parsedDate.getDate().toString().padStart(2, "0");
+    const month = (parsedDate.getMonth() + 1).toString().padStart(2, "0"); // Note: Month is zero-indexed
+    const year = parsedDate.getFullYear().toString().slice(-2);
+
+    return `${day}/${month}/${year}`;
+  }
+
+  const formattedDates = recentdeposit?.map((obj) => ({
+    id: obj._id,
+    paymentGateway: obj.paymentGateway,
+    amount: obj.amount,
+    status: obj.paymentStatus,
+    formattedDate: formatDate(obj.createdAt),
+  }));
+
+  const newformattedDates = recentTransaction?.map((obj) => ({
+    network: obj.network,
+    phone: obj.phone,
+    amount: obj.amount,
+    formattedDate: formatDate(obj.createdAt),
+  }));
+
+  console.log(formattedDates);
   return (
-    <div className="mt-10 lg:px-10 md:px-4 px-3">
+    <div className="my-10 lg:px-10 h-full md:h-screen lg:h-full md:px-4 px-3">
       <div className="bg-gradient-to-r from-[#163A7D] to-blue-300 px-4 rounded-lg md:w-[370px] w-[290px] h-[220px] ">
         <div className="pt-10">
           <div className="flex px-3 rounded-full py-2 bg-black w-fit items-center bg-blac bg-transpar">
@@ -123,48 +163,30 @@ const Dashboard = () => {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 gap-2 md:grid-cols-2 lg:gap-7 md:gap-4 mt-10">
-        <div className="bg-gray-950 rounded-md px-2 py-8 h-fit">
-          <p className="text-white text-xl  pb-5">Recent Transactions</p>
-          <div className="grid grid-cols-4 py-1 px-1 text-gray-300 text-sm bg-[#040c1c]">
-            <p>Title</p>
-            <p>gateway</p>
-            <p>Amount</p>
-            <p>Status</p>
-          </div>
-          <div className="">
-            {recentdeposit?.map((data) => (
-              <div
-                key={data.transactionId}
-                className="grid grid-cols-4 text-white px-1 text-[11px] mt-3 py-2"
-              >
-                <p>deposit</p> <p>flutterwave</p> <p>{data.amount}</p>{" "}
-                <p>{data.paymentStatus}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-        <div className="bg-gray-950 rounded-md px-2 py-8">
-          <p className="text-white text-xl  pb-5">Recent Wallets</p>
-          <div className="grid grid-cols-5 py-1 px-1 text-gray-300 text-sm bg-[#040c1c]">
-            <p>Type</p>
-            <p className="col-span-2">Number</p>
-            <p>Amount</p>
-            <p>Status</p>
-          </div>
-          <div className="">
-            {recentTransaction?.map((data) => (
-              <div
-                key={data._id}
-                className="grid grid-cols-5 text-white px-1 text-[11px] mt-3 py-2"
-              >
-                <p>{data.network}</p> <p className="col-span-2">{data.phone}</p>{" "}
-                <p>{data.amount}</p> <p>successful</p>
-              </div>
-            ))}
-          </div>
-        </div>
+      <div className='grid grid-cols-1 gap-2 md:grid-cols-2 lg:gap-4 md:gap-4 mt-10'>
+      <div className="bg-gray-950 rounded-md  py-8 ">
+      <p className="text-white text-xl px-4  pb-5">Recent Deposit</p>
+
+        <DataTable value={formattedDates} className=" text-gray-300  w-full px-4 lg:text-sm text-[11px] datatable-responsive"  >
+          <Column field="paymentGateway" header="gateway" headerClassName='bg-[#040c1c] px-2 rounded-l-md ' className="text-start w-[200px] "></Column>
+          <Column field="amount" header="amount" headerClassName='bg-[#040c1c]' className="text-start w-[200px]  py-2"></Column>
+          <Column field="status" header="status" headerClassName='bg-[#040c1c]' className="text-start w-[200px] py-2"></Column>
+          <Column field="formattedDate" header="Date" headerClassName='bg-[#040c1c] rounded-r-md ' className="text-start flex  py-2"></Column>
+        </DataTable>
       </div>
+      <div className="bg-gray-950 py-8  rounded-md ">
+      <p className="text-white text-xl px-4  pb-5">Recent Transactions</p>
+
+      <DataTable value={newformattedDates} className=" text-gray-300  w-full px-4 lg:text-sm text-[11px] datatable-responsive"  >
+          <Column field="network" header="Type" headerClassName='bg-[#040c1c] px-2 rounded-l-md ' className="text-start w-[200px] "></Column>
+          <Column field="phone" header="number" headerClassName='bg-[#040c1c]' className="text-start w-[200px]  py-2"></Column>
+          <Column field="amount" header="amount" headerClassName='bg-[#040c1c]' className="text-start w-[200px] py-2"></Column>
+          <Column field="formattedDate" header="Date" headerClassName='bg-[#040c1c] rounded-r-md ' className="text-start flex  py-2"></Column>
+        </DataTable>
+      </div>
+      </div>
+
+ 
     </div>
   );
 };

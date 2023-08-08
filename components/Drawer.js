@@ -14,11 +14,11 @@ export default function Drawer({ children, isOpen, setIsOpen }) {
         }}
         // initial={{ display:'hidden' }}
         animate={{
-          translateX: isOpen ? "-0%" : "-180%",
+          translateX: isOpen ? "-0%" : "-100%",
           display: "",
           // overflow: 'hidden'
         }}
-        className="bg-blue-900 z-10 h-screen cursor-pointer w-60 text-white overflow-x-hidden text-[12px] px-4 py-5 left-[0] fixed   addcart items-center"
+        className="bg-blue-900 z-10 h-screen cursor-pointer w-60 text-white overflow-x-hidden text-[12px] px-4 py-5 left-[0] fixed lg:hidden   addcart items-center"
       >
         <div className="">
           {children}
