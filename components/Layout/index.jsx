@@ -55,13 +55,13 @@ const LandingPageLayout = ({ children }) => {
   }, [token, dispatch]);
 
   return (
-    <div className={`flex bg-[#040c1c] tracking-wider`}>
+    <div className={`flex h-full bg-[#040c1c] tracking-wider`}>
       <SideBar />
       <div
       // style={{
       //   overflowY: "auto",
       // }}
-      className="w-full"
+      className=""
       >
         <main>{children}</main>
       </div>

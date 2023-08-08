@@ -16,7 +16,7 @@ const BuyData = () => {
 
   return (
     <LandingPageLayout>
-      <div className="pt-10 pl-10">
+      <div className="pt-10 lg:pl-10 px-4 lg:px-0">
         <p className=" text-[#4287f5] ">Buy Data </p>
         <PayBill datatype={datatype?.getdataSuccess?.type} catId="Phone Number" statu={status} typ='data' />
       </div>

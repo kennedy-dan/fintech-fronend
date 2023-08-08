@@ -4,7 +4,7 @@ import { BsFillCreditCardFill, BsFillPhoneFill, BsWifi } from "react-icons/bs";
 import { FcElectricity } from "react-icons/fc";
 import { AiOutlineThunderbolt } from "react-icons/ai";
 import { PiTelevisionSimpleBold } from "react-icons/pi";
-import { BiFootball,BiTransfer } from "react-icons/bi";
+import { BiFootball, BiTransfer } from "react-icons/bi";
 import { useSelector, useDispatch } from "react-redux";
 import {
   fetchbillTransactions,
@@ -24,9 +24,12 @@ const Dashboard = () => {
     dispatch(fetchbillTransactions());
     dispatch(fetchTransactions());
   }, [token, dispatch]);
+
+  const recentdeposit = gettrans?.bill?.bills?.slice(0, 4);
+  const recentTransaction = billtrans?.bill?.bills?.slice(0, 4);
   return (
-    <div className="mt-10 px-10">
-      <div className="bg-gradient-to-r from-[#163A7D] to-blue-300 px-4 rounded-lg w-[370px] h-[220px] ">
+    <div className="mt-10 lg:px-10 md:px-4 px-3">
+      <div className="bg-gradient-to-r from-[#163A7D] to-blue-300 px-4 rounded-lg md:w-[370px] w-[290px] h-[220px] ">
         <div className="pt-10">
           <div className="flex px-3 rounded-full py-2 bg-black w-fit items-center bg-blac bg-transpar">
             <RxAvatar className="text-white" />
@@ -38,12 +41,14 @@ const Dashboard = () => {
 
         <div className="flex items-center justify-between h-full">
           <p className="text-base font-semibold">Wallet Balance</p>
-          <p className="text-base font-semibold">₦{walletAmount}</p>
+          <p className="text-base font-semibold">
+            ₦{walletAmount.toLocaleString()}
+          </p>
         </div>
       </div>
 
-      <div className="grid grid-cols-6 font-bold gap-7 text-white mt-8">
-      <div className="py-7 px-7 bg-[#02060E] rounded-md text-center">
+      <div className="grid lg:grid-cols-6 md:grid-cols-3 grid-cols-2 font-bold md:gap-7 gap-3 text-white mt-8">
+        <div className="py-7 px-7 bg-[#02060E] rounded-md text-center">
           <Link href="/transfer">
             <div className="flex justify-center">
               {/* <button className="text-center"> */}
@@ -116,31 +121,31 @@ const Dashboard = () => {
             <p className="pt-3 text-sm">CableTv</p>
           </Link>
         </div>
-
- 
       </div>
 
-      <div className="grid grid-cols-2 gap-7 mt-10">
+      <div className="grid grid-cols-1 gap-2 md:grid-cols-2 lg:gap-7 md:gap-4 mt-10">
         <div className="bg-gray-950 rounded-md px-2 py-8 h-fit">
-          <p className="text-white text-xl  pb-5">Transactions History</p>
-          <div className="grid grid-cols-5 py-1 px-1 text-gray-300 text-sm bg-[#040c1c]">
+          <p className="text-white text-xl  pb-5">Recent Transactions</p>
+          <div className="grid grid-cols-4 py-1 px-1 text-gray-300 text-sm bg-[#040c1c]">
             <p>Title</p>
             <p>gateway</p>
-            <p>Order id</p>
             <p>Amount</p>
             <p>Status</p>
           </div>
           <div className="">
-            {gettrans?.bill?.bills?.map((data) => (
-              <div key={data.transactionId} className="grid grid-cols-5 text-white px-1 text-[11px] mt-3 py-2">
-                <p>deposit</p> <p>flutterwave</p> <p>{data.transactionId}</p>{" "}
-                <p>{data.amount}</p> <p>{data.paymentStatus}</p>
+            {recentdeposit?.map((data) => (
+              <div
+                key={data.transactionId}
+                className="grid grid-cols-4 text-white px-1 text-[11px] mt-3 py-2"
+              >
+                <p>deposit</p> <p>flutterwave</p> <p>{data.amount}</p>{" "}
+                <p>{data.paymentStatus}</p>
               </div>
             ))}
           </div>
         </div>
         <div className="bg-gray-950 rounded-md px-2 py-8">
-          <p className="text-white text-xl  pb-5">Wallets History</p>
+          <p className="text-white text-xl  pb-5">Recent Wallets</p>
           <div className="grid grid-cols-5 py-1 px-1 text-gray-300 text-sm bg-[#040c1c]">
             <p>Type</p>
             <p className="col-span-2">Number</p>
@@ -148,8 +153,11 @@ const Dashboard = () => {
             <p>Status</p>
           </div>
           <div className="">
-            {billtrans?.bill?.bills?.map((data) => (
-              <div key={data._id} className="grid grid-cols-5 text-white px-1 text-[11px] mt-3 py-2">
+            {recentTransaction?.map((data) => (
+              <div
+                key={data._id}
+                className="grid grid-cols-5 text-white px-1 text-[11px] mt-3 py-2"
+              >
                 <p>{data.network}</p> <p className="col-span-2">{data.phone}</p>{" "}
                 <p>{data.amount}</p> <p>successful</p>
               </div>
