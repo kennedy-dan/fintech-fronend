@@ -42,7 +42,7 @@ const Dashboard = () => {
         <div className="flex items-center justify-between h-full">
           <p className="text-base font-semibold">Wallet Balance</p>
           <p className="text-base font-semibold">
-            ₦{walletAmount.toLocaleString()}
+            ₦{walletAmount?.toLocaleString()}
           </p>
         </div>
       </div>
