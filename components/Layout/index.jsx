@@ -3,11 +3,13 @@ import SideBar from "./SideBar";
 import { fetchWalletAmount, clearWallet } from "@/store/slice/walletSice";
 import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from "next/navigation";
+import Footer from "../Footer";
 
 const LandingPageLayout = ({ children }) => {
   const { token, loggedin } = useSelector((state) => state.auth);
   const direct = useRouter();
   const { walletAmount } = useSelector((state) => state.wallet);
+  const [isOpen, setIsOpen] = React.useState(false);
 
   const dispatch = useDispatch();
   console.log(token);
@@ -55,8 +57,8 @@ const LandingPageLayout = ({ children }) => {
   }, [token, dispatch]);
 
   return (
-    <div className={`flex h-full bg-[#040c1c] tracking-wider`}>
-      <SideBar />
+    <div className={`md:flex h-full bg-[#040c1c] tracking-wider`}>
+      <SideBar isOpen={isOpen} setIsOpen={setIsOpen} />
       <div
       // style={{
       //   overflowY: "auto",
@@ -65,6 +67,7 @@ const LandingPageLayout = ({ children }) => {
       >
         <main>{children}</main>
       </div>
+      <Footer isOpen={isOpen} setIsOpen={setIsOpen} />
     </div>
   );
 };

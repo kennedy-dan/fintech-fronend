@@ -19,9 +19,9 @@ import { logOutCustomer } from "@/store/slice/authSlice";
 import { useDispatch } from "react-redux";
 import Drawer from "../Drawer";
 
-const SideBar = () => {
+const SideBar = ({isOpen, setIsOpen}) => {
   const dispatch = useDispatch();
-  const [isOpen, setIsOpen] = React.useState(false);
+  // const [isOpen, setIsOpen] = React.useState(false);
 
   const logOut = () => {
     dispatch(logOutCustomer());
@@ -129,14 +129,14 @@ const SideBar = () => {
   }, [isOpen]);
 
   return (
-    <div className="relative sidebar overflow-hidden border-[#07152D] lg:w-[20%] md:w-[10%] w-[10%]  border-r-[0.1px]">
-       <div className={`mt-10 md:px-2 px-1 lg:px-14  lg:hidden`}>
+    <div className="relative sidebar overflow-y-hidden lg:w-[15%] md:w-[10%] w-[10%]  border-r-[0">
+       <div className={`mt-10 md:px-2 px-1 lg:px-14 md:block hidden lg:hidden`}>
           <AiOutlineMenu
             onClick={() => setIsOpen(true)}
             className={`text-[#4287f5]  md:h-8 md:w-6 cursor-pointer`}
           />{" "}
         </div>
-      <div className="border-r-[0.1px] pt-10 border-[#07152D] hidden lg:block  h-s px-7">
+      <div className="border-r-[0.1px] pt-10 border-[#07152D] hidden lg:block  h-s px-2">
        
      {NavContent}
       </div>
