@@ -181,7 +181,7 @@ const Dashboard = () => {
           </Link>
         </div>
         <div className="md:py-7 md:px-7 px-5 py-5 bg-[#02060E] rounded-md text-center">
-          <Link href="/buy-airtime">
+          <Link href="/buy-cable">
             <div className="flex justify-center">
               {/* <button className="text-center"> */}
               <div className="bg-tv-rgba rounded-full px-3 py-3">

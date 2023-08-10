@@ -18,7 +18,8 @@ const Profile = () => {
 
   return (
     <LandingPageLayout>
-        <div className="my-10 lg:px-4 md:px-4 px-3  h-screen">
+      <div>
+      <div className="my-10 lg:px-4 md:px-4 px-3  h-screen">
         <div className="flex">
         <Link href='/dashboard' className="md:hidden">
         <button className="text-[#4287f5] md:hidden ">
@@ -57,6 +58,8 @@ const Profile = () => {
         <div className=""></div>
       </div>
         </div>
+      </div>
+    
     
     </LandingPageLayout>
   );

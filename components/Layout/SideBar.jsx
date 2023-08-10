@@ -1,6 +1,6 @@
 import React,{useEffect} from "react";
 import { BiHomeAlt, BiTransfer } from "react-icons/bi";
-import { BsCurrencyDollar, BsPhone, BsWifi } from "react-icons/bs";
+import { BsCurrencyDollar, BsPhone, BsWifi, BsPerson } from "react-icons/bs";
 import { PiTelevisionSimpleBold } from "react-icons/pi";
 import {
   AiOutlineThunderbolt,
@@ -83,6 +83,14 @@ const SideBar = ({isOpen, setIsOpen}) => {
               <AiOutlineThunderbolt />
             </button>
             <p>Electricity</p>
+          </div>
+        </Link>
+        <Link href="/profile">
+          <div className="flex text-[#4287f5] font-extralight text-sm pt-10 cursor-pointer">
+            <button className="pr-2">
+              <BsPerson />
+            </button>
+            <p>Profile</p>
           </div>
         </Link>
         <Link href="/transactions">

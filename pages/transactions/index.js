@@ -7,6 +7,8 @@ import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
 import { useSelector, useDispatch } from "react-redux";
 import LandingPageLayout from "@/components/Layout";
+import { IoIosArrowRoundBack } from "react-icons/io";
+import Link from "next/link";
 
 const Transactions = () => {
   const dispatch = useDispatch();
@@ -66,7 +68,16 @@ const Transactions = () => {
   console.log(formattedDates);
   return (
     <LandingPageLayout>
-      <div className="">
+      <div className="pt-10 md:pl-10  px-4">
+      <div className="flex">
+        <Link href='/dashboard' className="md:hidden">
+        <button className="text-[#4287f5] md:hidden ">
+          <IoIosArrowRoundBack className="w-6 h-6" />
+        </button>
+        </Link>
+        <p className=" text-gray-600 font-bold w-full ">transactions</p>
+      </div>
+      <hr className="border-[#4287f5] mt-4" />
       <div className="grid grid-cols-1 gap-2 md:grid-cols-2 lg:gap-4 md:gap-4 mt-10">
         <div className="bg-gray-950 rounded-md  py-8 ">
           <p className="text-white text-xl px-1 md:px-4   pb-5">
