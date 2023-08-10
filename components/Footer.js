@@ -13,7 +13,7 @@ const Footer = ({isOpen, setIsOpen}) => {
   
 
   return (
-    <div className="text-white sidebar block md:hidden">
+    <div className="text-white top-[60px] sidebar block md:hidde">
       <div className="flex px-3 justify-between bg-gray-950 py-3">
         <Link href="">
           <button>

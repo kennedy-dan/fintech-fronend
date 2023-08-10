@@ -57,17 +57,21 @@ const LandingPageLayout = ({ children }) => {
   }, [token, dispatch]);
 
   return (
-    <div className={`md:flex h-full bg-[#040c1c] tracking-wider`}>
+    <div
+      className={`md:flex  bg-[#040c1c] tracking-wider`}
+    >
       <SideBar isOpen={isOpen} setIsOpen={setIsOpen} />
       <div
-      // style={{
-      //   overflowY: "auto",
-      // }}
-      className=""
+        // style={{
+        //   overflowY: "auto",
+        // }}
+        className=""
       >
         <main>{children}</main>
       </div>
-      <Footer isOpen={isOpen} setIsOpen={setIsOpen} />
+      <div className="fixed bottom-0">
+        <Footer isOpen={isOpen} setIsOpen={setIsOpen} />
+      </div>
     </div>
   );
 };

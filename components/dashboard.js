@@ -183,19 +183,19 @@ const Dashboard = () => {
 
           <DataTable
             value={formattedDates}
-            className=" text-gray-300  w-full px-1 md:px-4  lg:text-sm text-[11px] datatable-responsive"
+            className=" text-gray-300  w-full px-1 md:px-4  lg:text-sm text-[13px] datatable-responsive"
           >
             <Column
               field="paymentGateway"
               header="gateway"
-              headerClassName="bg-[#040c1c] px-2 rounded-l-md "
+              headerClassName="bg-[#040c1c]  rounded-l-md "
               className="text-start w-[120px]"
             ></Column>
             <Column
               field="amount"
               header="amount"
               headerClassName="bg-[#040c1c]"
-              className="text-start w-[180px]  py-2"
+              className="text-start w-[180px] pl-2  py-2"
             ></Column>
             <Column
               field="status"
@@ -218,12 +218,12 @@ const Dashboard = () => {
 
           <DataTable
             value={newformattedDates}
-            className=" text-gray-300  w-full px-1 md:px-4 lg:text-sm text-[11px] datatable-responsive"
+            className=" text-gray-300  w-full px-1 md:px-4 lg:text-sm text-[13px] datatable-responsive"
           >
             <Column
               field="network"
               header="Type"
-              headerClassName="bg-[#040c1c] px-2 rounded-l-md "
+              headerClassName="bg-[#040c1c] rounded-l-md "
               className="text-start w-[180px]"
             ></Column>
             <Column

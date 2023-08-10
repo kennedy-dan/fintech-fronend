@@ -5,6 +5,7 @@ import { fetchAirtimeCategories } from "@/store/slice/getDataSlice";
 import { useSelector, useDispatch } from "react-redux";
 import { payAirtime } from "@/store/slice/payBillsSlice";
 import { IoIosArrowRoundBack } from "react-icons/io";
+import Link from "next/link";
 
 
 const BuyAirtime = () => {
@@ -17,8 +18,17 @@ const BuyAirtime = () => {
 
   return (
     <LandingPageLayout>
-      <div className="pt-10 md:pl-10 pl-4">
-        <p className=" text-[#4287f5] ">Buy Airtime </p>
+      <div className="pt-10 md:pl-10 px-4">
+      <div className="flex">
+        <Link href='/dashboard' className="md:hidden">
+        <button className="text-[#4287f5] ">
+          <IoIosArrowRoundBack className="w-6 h-6" />
+        </button>
+        </Link>
+        <p className=" text-gray-600 font-bold w-full ml-3">Buy Airtime</p>
+      </div>
+      <hr className="border-[#4287f5] mt-4" />
+
         <PayBill datatype={airtimetype?.getdataSuccess?.type} catId="Phone Number" statu={status} typ='airtime' payBills={payAirtime} />
 
       </div>

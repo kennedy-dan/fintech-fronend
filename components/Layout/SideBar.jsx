@@ -129,7 +129,7 @@ const SideBar = ({isOpen, setIsOpen}) => {
   }, [isOpen]);
 
   return (
-    <div className="relative sidebar overflow-y-hidden lg:w-[15%] md:w-[10%] w-[10%]  border-r-[0">
+    <div className="relative sidebar overflow-y-hidden lg:w-[15%] md:w-[10%] w-[10%] border-blue-950  border-r-[1px]">
        <div className={`mt-10 md:px-2 px-1 lg:px-14 md:block hidden lg:hidden`}>
           <AiOutlineMenu
             onClick={() => setIsOpen(true)}
