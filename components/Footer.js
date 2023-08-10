@@ -30,7 +30,7 @@ const Footer = ({ isOpen, setIsOpen }) => {
           </button>
         </Link>
 
-        <Link href="/transaction">
+        <Link href="/transactions">
           <button>
             <AiOutlineTransaction className="w-6 h-6" />
           </button>

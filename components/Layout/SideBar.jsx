@@ -85,12 +85,16 @@ const SideBar = ({isOpen, setIsOpen}) => {
             <p>Electricity</p>
           </div>
         </Link>
+        <Link href="/transactions">
+
         <div className="flex text-[#4287f5] text-sm font-extralight pt-10 cursor-pointer">
           <button className="pr-2">
             <AiOutlineTransaction />
           </button>
           <p>Transactions</p>
         </div>
+        </Link>
+
         <div className="flex text-[#4287f5] font-extralight text-sm pt-10 cursor-pointer">
           <button className="pr-2">
             <MdOutlineDeveloperMode />

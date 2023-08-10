@@ -268,6 +268,13 @@ const Dashboard = () => {
           </DataTable>
         </div>
       </div>
+      <div className="flex justify-end">
+          <Link href="/transactions">
+            <p className="text-center underline-offset-[5px] underline text-gray-300 decoration-blue-600 pl-2">
+              View all transactions
+            </p>
+          </Link>
+      </div>
     </div>
   );
 };
