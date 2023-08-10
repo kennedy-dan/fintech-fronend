@@ -69,7 +69,7 @@ const LandingPageLayout = ({ children }) => {
       >
         <main>{children}</main>
       </div>
-      <div className="fixed bottom-0">
+      <div className="fixed bottom-0 w-full lg:hidden">
         <Footer isOpen={isOpen} setIsOpen={setIsOpen} />
       </div>
     </div>

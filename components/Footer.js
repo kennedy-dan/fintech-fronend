@@ -9,43 +9,44 @@ import {
   AiOutlineMenu,
 } from "react-icons/ai";
 
-const Footer = ({isOpen, setIsOpen}) => {
-  
-
+const Footer = ({ isOpen, setIsOpen }) => {
   return (
-    <div className="text-white top-[60px] sidebar block md:hidde">
-      <div className="flex px-3 justify-between bg-gray-950 py-3">
+    <div className="text-white top-[60px] w-full sidebar block md:hidde">
+      <div className="flex h-full items-center px-3 justify-between bg-gray-950 py-3">
         <Link href="">
           <button>
             <BiHomeAlt className="w-6 h-6" />
           </button>
         </Link>
-        <Link href="">
+        <Link href="/transfer">
           <button>
             <BiTransfer className="w-6 h-6" />
           </button>
         </Link>
 
-        <Link href="">
+        <Link href="/profile">
           <button>
             <BsPerson className="w-6 h-6" />
           </button>
         </Link>
 
-        <Link href="">
+        <Link href="/transaction">
           <button>
             <AiOutlineTransaction className="w-6 h-6" />
           </button>
         </Link>
-        <Link href="">
+        <Link href="/deposit">
           <button>
             <BsCurrencyDollar className="w-6 h-6" />
           </button>
         </Link>
+        {/* <Link href=''> */}
+        <div>
           <button onClick={() => setIsOpen(true)}>
             <AiOutlineMenu className="w-6 h-6" />
           </button>
-        
+        {/* </Link> */}
+        </div>
       </div>
     </div>
   );

@@ -55,7 +55,7 @@ export const gettransactionSlice = createSlice({
       });
     builder
       .addCase(fetchbillTransactions.pending, (state) => {
-        state.status = "loading";
+        state.billtrans.status = "loading";
       })
       .addCase(fetchbillTransactions.fulfilled, (state, { payload }) => {
         state.billtrans.status = "successful";
@@ -63,7 +63,7 @@ export const gettransactionSlice = createSlice({
       });
     builder
       .addCase(fetchTransactions.pending, (state) => {
-        state.status = "loading";
+        state.gettrans.status = "loading";
       })
       .addCase(fetchTransactions.fulfilled, (state, { payload }) => {
         state.gettrans.status = "successful";

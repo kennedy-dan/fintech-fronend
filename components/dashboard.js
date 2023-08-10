@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { RxAvatar } from "react-icons/rx";
 import { BsFillCreditCardFill, BsFillPhoneFill, BsWifi } from "react-icons/bs";
 import { FcElectricity } from "react-icons/fc";
@@ -16,18 +16,35 @@ import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
 import { useRouter } from "next/router";
 import Link from "next/link";
+import { ClipLoader } from "react-spinners";
+
 const Dashboard = () => {
   const dispatch = useDispatch();
   const router = useRouter();
-  const { walletAmount } = useSelector((state) => state.wallet);
+  const { walletAmount, status } = useSelector((state) => state.wallet);
   const { billtrans, gettrans } = useSelector((state) => state.transaction);
   const { token, user } = useSelector((state) => state.auth);
+  const [depositLoading, setDepositLoading] = useState(true)
+  const [billstransLoading, setbillstransLoading] = useState(true)
 
   useEffect(() => {
     // router.reload()
     dispatch(fetchbillTransactions());
     dispatch(fetchTransactions());
   }, [token, dispatch]);
+
+  useEffect(() => {
+    if(gettrans.status === "successful"){
+      setDepositLoading(false)
+    }
+
+    if(billtrans.status === "successful"){
+      setbillstransLoading(false)
+    }
+
+
+  }, [gettrans, billstransLoading])
+  
 
   const cars = [
     { brand: "Toyota", year: 2022, color: "Blue" },
@@ -70,13 +87,11 @@ const Dashboard = () => {
   console.log(formattedDates);
   return (
     <div className="my-10 lg:px-4 h-full md:h-screen lg:h-full md:px-4 px-3">
-      <div className="flex">
-        <buton className="text-[#4287f5] md:hidden">
-          <IoIosArrowRoundBack className="w-6 h-6" />
-        </buton>
-        <p className=" text-gray-600 font-bold w-full ml-3">Dashboard</p>
+        <div className="flex">
+        <p className=" text-gray-600 font-bold w-full ">Dashboard</p>
       </div>
-      <hr className="border-[#4287f5] pb-4" />
+      <hr className="border-[#4287f5] my-4" />
+
       <div className="bg-gradient-to-r from-[#163A7D] to-blue-300 px-4 rounded-lg md:w-[370px] w-full h-[220px] ">
         <div className="pt-10">
           <div className="flex px-3 rounded-full py-2 bg-black w-fit items-center bg-blac bg-transpar">
@@ -89,9 +104,13 @@ const Dashboard = () => {
 
         <div className="flex items-center justify-between h-full">
           <p className="text-base font-semibold">Wallet Balance</p>
-          <p className="text-base font-semibold">
-            ₦{walletAmount?.toLocaleString()}
-          </p>
+          {status === 'loading' && walletAmount !== null ? (
+            <ClipLoader />
+          ) : (
+            <p className="text-base font-semibold">
+              ₦{walletAmount?.toLocaleString()}
+            </p>
+          )}
         </div>
       </div>
 
@@ -184,6 +203,7 @@ const Dashboard = () => {
           <DataTable
             value={formattedDates}
             className=" text-gray-300  w-full px-1 md:px-4  lg:text-sm text-[13px] datatable-responsive"
+            loading={depositLoading}
           >
             <Column
               field="paymentGateway"
@@ -219,6 +239,7 @@ const Dashboard = () => {
           <DataTable
             value={newformattedDates}
             className=" text-gray-300  w-full px-1 md:px-4 lg:text-sm text-[13px] datatable-responsive"
+            loading={billstransLoading}
           >
             <Column
               field="network"
